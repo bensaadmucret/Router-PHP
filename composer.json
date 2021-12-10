@@ -1,0 +1,26 @@
+{
+    "name": "mzb/framework",
+    "description": "framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mohammedBensaad",
+            "email": "bensaadmucret@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/http-foundation": "9999999-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mzb\\Framework\\": "src/",
+            "Mzb\\Framework\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "4.0.x-dev",
+        "symfony/var-dumper": "9999999-dev",
+        "phpunit/phpunit": "9.5.x-dev"
+    }
+}
