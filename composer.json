@@ -10,7 +10,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "symfony/http-foundation": "9999999-dev"
+        "symfony/http-foundation": "6.0.*"
     },
     "autoload": {
         "psr-4": {
@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "4.0.x-dev",
-        "symfony/var-dumper": "9999999-dev",
+        "symfony/var-dumper": "6.0.*",
         "phpunit/phpunit": "9.5.x-dev"
     }
 }
