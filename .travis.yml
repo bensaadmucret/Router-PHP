@@ -7,7 +7,8 @@ php:
 # Commands to be run before your environment runs.
 before_script:
   - composer self-update
-  - composer install  --no-interaction --prefer-dist --optimize-autoloader
+  - composer global require "symfony/http-foundation 9999999-dev"
+  - composer install --prefer-source --no-interaction
 
 # Commands you want to run that will verify your build.
 script:
