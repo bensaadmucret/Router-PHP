@@ -1,14 +1,15 @@
 {
-    "name": "mzb/framework",
-    "description": "framework",
+    "name": "mzb/php-router",
+    "description": "The router component allows you to define routes that correspond to controllers or managers that should receive the request. A router parses the URI to extract this information. The router has two modes: MVC, and match-only. The first mode is ideal for working on MVC applications.",
     "license": "MIT",
+    "version": "1.0.0",    
     "authors": [
         {
             "name": "mohammedBensaad",
             "email": "bensaadmucret@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "symfony/http-foundation": "5.4.x-dev"
     },
