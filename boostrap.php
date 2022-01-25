@@ -1,18 +1,22 @@
 <?php declare(strict_types=1);
 
-namespace Mzb\Framework;
+namespace Mzb;
+
+use Mzb\Router\Router;
+
+
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use Mzb\Framework\Router\Router;
+
 
 $router = new Router();
 
-router::setNameSpace('Mzb\\Framework\\Controller\\');
+router::setNameSpace('Mzb\\Controller\\');
 
 $router->add('GET', '/', 'HomeController@index', 'home');
 
-//$router->add('GET', '/about', 'HomeController@about', 'about-us');
+$router->add('GET', '/about', 'HomeController@about', 'about-us');
 
 $router->add('GET', '/about:12', 'AboutController@about', 'about-us');
 

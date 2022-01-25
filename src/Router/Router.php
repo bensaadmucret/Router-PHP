@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Mzb\Framework\Router;
+namespace Mzb\Router;
 
+use Mzb\Router\Route;
+use Mzb\RouterException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,9 +22,7 @@ class Router
         $this->url = $request->getPathInfo();
         $this->method = $request->getMethod();
         
-       
-        // $this->url = $_SERVER['REQUEST_URI'];
-       // $this->method = $_SERVER['REQUEST_METHOD'];
+        
     }
 
 
@@ -36,8 +36,7 @@ class Router
     public function add(string $method, string $path, $callable, string $name)
     {
         $route = new Route($method, $path, $callable, $name);
-        // $this->routes[$this->getMethod()] = $route;
-        $this->routes[] = [$route];
+        $this->routes[] =  array_merge($this->routes, [$route]);
     }
 
 
@@ -49,11 +48,10 @@ class Router
      */
     public function getName(): string
     {
-        foreach ($this->routes as $route) {
+     
+         foreach ($this->routes as $route) {         
             foreach ($route as $r) {
-                if ($r->match($this->url)) {
-                    return $r->name;
-                }
+               return $r->name;
             }
         }
         return '';
@@ -61,16 +59,82 @@ class Router
    
     /**
      * retourne la méthode courante
+     * @return string
+     * @return method [GET, POST, PUT, DELETE]
+     */
+   
+    public function getMethod(): string
+    {
+        foreach ($this->routes as $route) {
+            foreach ($route as $r) {
+                return $r->method;
+            }
+        }   
+        
+        
+        
+    }
+    
+
+    /**
+     * retourne le namespace
+     * @return string
+     */
+    public static function getNameSpace(): string
+    {
+        return self::$namespace;
+    }
+
+    /**
+     * retourne la route en fonction de l'url courante
+     * @return url of request
+     */
+    public function getRoute()
+    {
+        foreach ($this->routes as $route) {
+            foreach ($route as $r) {                
+                    return '/' . $r->path;                
+            }
+        }
+        return null;
+    }
+
+    /**
+     * retourne la route en fonction du nom
      * @param string $name
+     * @return NameRoute
+     */
+    public function getRouteByName($name)
+    {
+        foreach ($this->routes as $route) {
+            foreach ($route as $r) {
+                if ($r->name == $name) {
+                    return '/' . $r->path;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * retourne la route en fonction du callable
+     * @param string $callable
      * @return Route
      */
-    public function getMethod()
+    public function getRouteByCallable(string $callable): Route
     {
-        if (isset($_SERVER['REQUEST_METHOD'])) {
-            $this->method = $_SERVER['REQUEST_METHOD'];
+        foreach ($this->routes as $route) {
+            foreach ($route as $r) {
+                if ($r->callable == $callable) {
+                    return $r;
+                }
+            }
         }
-        return $this->method;
+        return null;
     }
+
+    
+
     
     
     /**
@@ -79,36 +143,29 @@ class Router
      * @param array $params
      * @return string
      */
-    public function generateUri($name)
+    public function generateUri($name): string
     {
         $html = '';
-
-        for ($i = 0; $i < count($this->routes); $i++) {
-            foreach ($this->routes[$i] as $route) {
-                if ($route->name === $name):
-                $is_url = $route->path == '/' ? $route->path : '/' . $route->path;
-                $html = '<a href="' . $is_url . '">' . $route->name . '</a>';
-                endif;
-            }
-        }
+       
+            foreach ($this->routes as $route) {
+                foreach ($route as $r) { 
+                                    
+                    if ($r->name == $name) {
+                        $is_url = $r->path === '/' ? $r->path : '/' . $r->path;
+                        $html = '<a href="' . $is_url . '">' . $r->name . '</a>';
+                    }
+                }
+                
+            }     
           
        
         return $html;
     }
     
-
-    public function getRoute($callable)
-    {
-        foreach ($this->routes as $route) {
-            foreach ($route as $r) {
-                if ($r->callable === $callable):
-                return '/' . $r->path;
-                endif;
-            }
-        }
-        return '';
-    }
-
+    
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return $this->url;
@@ -125,11 +182,14 @@ class Router
     public function run()
     {
         foreach ($this->routes as $route) {
+            
             foreach ($route as $r) {
+               
                 if (!isset($r->method)) {
                     throw new RouterException('REQUEST_METHOD does not exist');
                 }
-                if ($r->match($this->url)) {
+              
+                if ($r->match($r->path) && $r->method == $this->method) {
                     return $r->call();
                 }
             }
@@ -138,24 +198,36 @@ class Router
     }
 
     
-    public function redirect($location)
+
+  
+
+
+    /**
+     * redirect to a route
+     * @return void
+     */
+    public  static function redirect(string $location, int $code)
     {
         $response = new Response();
         $response->headers->set('Location', $location);
+        $response->setStatusCode($code);
         $response->send();
     }
 
+    /** set namespace
+     * @param string $namespace
+     */
     public static function setNameSpace($namespace)
     {
         return self::$namespace = $namespace;
     }
 
-    public static function getNameSpace(): string
-    {
-        return self::$namespace;
-    }
     
 
+    /**
+     * @param string $url
+     * @return void
+     */
     public function dispatch()
     {
         try {

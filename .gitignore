@@ -460,7 +460,7 @@ composer.phar
 composer.lock
 
 ##### PHP CodeSniffer
-# gitignore for the PHP Codesniffer framework
+# gitignore for the PHP Codesniffer Router
 # website: https://github.com/squizlabs/PHP_CodeSniffer
 #
 # Recommended template: PHP.gitignore

@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Mzb\Framework\Router;
+namespace Mzb\Router;
 
-use Mzb\Framework\Router\Router;
 use Symfony\Component\HttpFoundation\Request;
 
 class Route
@@ -25,8 +24,7 @@ class Route
 
     public function match($url)
     {
-        //$url = Request::createFromGlobals()->getPathInfo();
-        //$url = $_SERVER['REQUEST_URI'] ?? '/';
+  
         $url = trim($url, '/');
         $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
         $regex = "#^$path$#i";
@@ -34,9 +32,7 @@ class Route
             return false;
         }
         array_shift($matches);
-        var_dump($matches);
-        $this->matches = $matches;
-        
+        $this->matches = $matches;        
         return true;
     }
 
@@ -46,8 +42,7 @@ class Route
             $params = explode('@', $this->callable);
             $controller = router::getNameSpace() . $this->getController();
             $action = $params[1];
-            $controller = new $controller;
-           
+            $controller = new $controller;           
             return call_user_func_array([$controller, $action], $this->matches);
         } else {
             return call_user_func_array($this->callable, $this->matches);

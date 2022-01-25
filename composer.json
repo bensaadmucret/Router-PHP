@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Mzb\\Framework\\": "src/",
-            "Mzb\\Framework\\Tests\\": "tests/"
+            "Mzb\\": "src/",
+            "Mzb\\Tests\\": "tests/"
         }
     },
     "require-dev": {

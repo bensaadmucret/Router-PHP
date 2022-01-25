@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mzb\Framework\Controller;
+namespace Mzb\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
