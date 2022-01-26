@@ -33,10 +33,18 @@ class Router
      * @param string $method
      * @param string $name
      */
-    public function add(string $method, string $path, $callable, string $name)
+    public function add(string $method, string $path, $callable, string $name = null)
     {
         $route = new Route($method, $path, $callable, $name);
-        $this->routes[] =  array_merge($this->routes, [$route]);
+        $this->routes[$method][] = $route;
+        if(is_string($callable) && $name === null){
+            $name = $callable;
+        }
+        if($name){
+            $this->namedRoutes[$name] = $route;
+        }
+        return $route;
+        
     }
 
 
@@ -143,15 +151,16 @@ class Router
      * @param array $params
      * @return string
      */
-    public function generateUri($name): string
+    public function generateUri($name)
     {
         $html = '';
        
             foreach ($this->routes as $route) {
                 foreach ($route as $r) { 
                                     
-                    if ($r->name == $name) {
-                        $is_url = $r->path === '/' ? $r->path : '/' . $r->path;
+                    if ($r->name === $name) {
+                        dump($this->url);
+                        $is_url = $r->path === '/' ? $r->path : '/' .  $r->path;
                         $html = '<a href="' . $is_url . '">' . $r->name . '</a>';
                     }
                 }
@@ -179,19 +188,13 @@ class Router
      * @throws RouterException
      * @throws \Exception
      */
-    public function run()
-    {
-        foreach ($this->routes as $route) {
-            
-            foreach ($route as $r) {
-               
-                if (!isset($r->method)) {
-                    throw new RouterException('REQUEST_METHOD does not exist');
-                }
-              
-                if ($r->match($r->path) && $r->method == $this->method) {
-                    return $r->call();
-                }
+    public function run(){
+        if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
+            throw new RouterException('REQUEST_METHOD does not exist');
+        }
+        foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
+            if($route->match($this->url)){
+                return $route->call();
             }
         }
         throw new RouterException('No matching routes');
