@@ -5,6 +5,8 @@ namespace Mzb\Tests;
 use Mzb\Router\Router;
 
 
+
+use Mzb\Router\RouterException;
 use PHPUnit\Framework\TestCase;
 use Mzb\Router\Controller\AboutController;
 use Symfony\Component\HttpFoundation\Request;
@@ -194,30 +196,9 @@ class StackTest extends TestCase
         $this->assertEquals('/about/1', $router->getRouteByName('about'));
     }
 
-   public function testGenreartionUri()
-   {
-        $router = new Router();
-        $response = new Response();
-        router::setNameSpace('Mzb\\Controller\\');
-        $router->add('GET', '/about/1', 'AboutController@about', 'about');
-        $request = Request::create('/about/1');
-        $router->generateUri('about');
-        $this->assertEquals('/about/1', $router->getRouteByName('about'));
-        $this->assertEquals('<a href="/about/1">about</a>', $router->generateUri('about'));
-   }
+   
 
-    public function testGenreartionUriWithParameters()
-    {
-          $router = new Router();
-          $response = new Response();
-          router::setNameSpace('Mzb\\Controller\\');
-          $router->add('GET', '/about/1', 'AboutController@about', 'about');
-          $request = Request::create('/about/1');
-          $router->generateUri('about', ['id' => 1]);
-          $this->assertEquals('/about/1', $router->getRouteByName('about'));
-          $this->assertEquals('<a href="/about/1">about</a>', $router->generateUri('about', ['id' => 1]));
-    }
-
+    
     public function testRun()
     {
         $router = new Router();
@@ -229,15 +210,22 @@ class StackTest extends TestCase
             '<h1>About</h1>',
             Response::HTTP_OK,
             ['content-type' => 'text/html']
-        );
-               
+        );               
         $this->assertEquals($response->getContent(),  '<h1>About</h1>');
       
-    
 
+    }
 
-
-       
+    public function testRunWithException()
+    {
+        $router = new Router();
+        $response = new Response();
+        router::setNameSpace('Mzb\\Controller\\');
+        $router->add('GET', '/about/1', 'AboutController@about', 'about');
+        $request = Request::create('/about/notfound');
+        $this->expectExceptionMessage('not found');
+        $router->run();   
+      
 
     }
     

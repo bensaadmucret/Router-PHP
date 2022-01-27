@@ -4,6 +4,7 @@ namespace Mzb\Router;
 
 use Mzb\Router\Route;
 use Mzb\RouterException;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -112,7 +113,7 @@ class Router
      * @param string $name
      * @return NameRoute
      */
-    public function getRouteByName($name)
+    public function getRouteByName($name):string
     {
         foreach ($this->routes as $route) {
             foreach ($route as $r) {
@@ -144,33 +145,7 @@ class Router
     
 
     
-    
-    /**
-     * Génère l'url à partir d'un nom de route
-     * @param string $name
-     * @param array $params
-     * @return string
-     */
-    public function generateUri($name)
-    {
-        $html = '';
-       
-            foreach ($this->routes as $route) {
-                foreach ($route as $r) { 
-                                    
-                    if ($r->name === $name) {
-                        dump($this->url);
-                        $is_url = $r->path === '/' ? $r->path : '/' .  $r->path;
-                        $html = '<a href="' . $is_url . '">' . $r->name . '</a>';
-                    }
-                }
-                
-            }     
-          
-       
-        return $html;
-    }
-    
+   
     
     /**
      * @return string
@@ -189,15 +164,15 @@ class Router
      * @throws \Exception
      */
     public function run(){
-        if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
+        if(!isset($this->routes[$this->getMethod()])){
             throw new RouterException('REQUEST_METHOD does not exist');
         }
-        foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
+        foreach($this->routes[$this->getMethod()] as $route){
             if($route->match($this->url)){
                 return $route->call();
             }
         }
-        throw new RouterException('No matching routes');
+        throw new RouterException('Route not found');
     }
 
     
@@ -236,7 +211,10 @@ class Router
         try {
             $response = $this->run();
         } catch (RouterException $e) {
-            $response = new Response($e->getMessage(), 404);
+           $Response =  new Response($e->getMessage(), 404);
+           $Response->setStatusCode(404);
+           $Response->send();
+
         }
         if ($response instanceof Response) {
             $response->send();

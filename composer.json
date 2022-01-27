@@ -1,8 +1,19 @@
 {
-    "name": "mzb/php-router",
+    "name": "mzb/php-router-matcher",
     "description": "The router component allows you to define routes that correspond to controllers or managers that should receive the request. A router parses the URI to extract this information. The router has two modes: MVC, and match-only. The first mode is ideal for working on MVC applications.",
     "license": "MIT",
-    "version": "1.0.0",    
+    "version": "1.0.0", 
+    "tags": [
+        "router", 
+        "mvc", 
+        "match-only", 
+        "php", 
+        "php-router-matcher"
+    ],
+    "requires": {
+        "php": ">=7.2.0",
+        "mzb/php-router-matcher": "1.0.0"
+    },
     "authors": [
         {
             "name": "mohammedBensaad",
@@ -11,7 +22,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "symfony/http-foundation": "5.4.x-dev"
+        "symfony/http-foundation": "^5.4.0"
     },
     "autoload": {
         "psr-4": {
@@ -21,7 +32,7 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "4.0.x-dev",
-        "symfony/var-dumper": "5.4.x-dev",
-        "phpunit/phpunit": "9.5.x-dev"
+        "symfony/var-dumper": "5.4.*",
+        "phpunit/phpunit": "9.5.*"
     }
 }
