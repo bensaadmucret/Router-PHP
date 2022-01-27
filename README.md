@@ -21,7 +21,10 @@ The following versions of PHP are supported by this version.
 Composer
 Route is available on Packagist and can be installed using Composer:
 
+``` php
 composer require mzb/php-router-matcher
+
+```
 
 ``` php
 
