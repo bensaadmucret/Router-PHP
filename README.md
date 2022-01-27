@@ -3,6 +3,7 @@
 
 
 [![Build Status](https://app.travis-ci.com/bensaadmucret/Router-PHP.svg?branch=main)](https://app.travis-ci.com/bensaadmucret/Router-PHP)
+[![Coverage Status](https://coveralls.io/repos/github/bensaadmucret/mzb-php-router-matcher/badge.svg?branch=main)](https://coveralls.io/github/bensaadmucret/mzb-php-router-matcher?branch=main)
 
 Requirements
 The following versions of PHP are supported by this version.
