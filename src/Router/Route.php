@@ -32,7 +32,7 @@ class Route
             return false;
         }
         array_shift($matches);
-        $this->matches = $matches;        
+        $this->matches = $matches;
         return true;
     }
 
@@ -42,7 +42,7 @@ class Route
             $params = explode('@', $this->callable);
             $controller = router::getNameSpace() . $this->getController();
             $action = $params[1];
-            $controller = new $controller;           
+            $controller = new $controller;
             return call_user_func_array([$controller, $action], $this->matches);
         } else {
             return call_user_func_array($this->callable, $this->matches);

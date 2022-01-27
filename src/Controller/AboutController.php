@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AboutController
 {
     public function about($id, $slug): Response
-    {        
+    {
         return new Response('About page test . ' . $id .' ' . $slug . '!');
     }
 }

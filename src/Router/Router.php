@@ -22,8 +22,6 @@ class Router
         $request = Request::createFromGlobals();
         $this->url = $request->getPathInfo();
         $this->method = $request->getMethod();
-        
-        
     }
 
 
@@ -38,14 +36,13 @@ class Router
     {
         $route = new Route($method, $path, $callable, $name);
         $this->routes[$method][] = $route;
-        if(is_string($callable) && $name === null){
+        if (is_string($callable) && $name === null) {
             $name = $callable;
         }
-        if($name){
+        if ($name) {
             $this->namedRoutes[$name] = $route;
         }
         return $route;
-        
     }
 
 
@@ -58,9 +55,9 @@ class Router
     public function getName(): string
     {
      
-         foreach ($this->routes as $route) {         
+        foreach ($this->routes as $route) {
             foreach ($route as $r) {
-               return $r->name;
+                return $r->name;
             }
         }
         return '';
@@ -78,10 +75,7 @@ class Router
             foreach ($route as $r) {
                 return $r->method;
             }
-        }   
-        
-        
-        
+        }
     }
     
 
@@ -101,8 +95,8 @@ class Router
     public function getRoute()
     {
         foreach ($this->routes as $route) {
-            foreach ($route as $r) {                
-                    return '/' . $r->path;                
+            foreach ($route as $r) {
+                    return '/' . $r->path;
             }
         }
         return null;
@@ -163,12 +157,13 @@ class Router
      * @throws RouterException
      * @throws \Exception
      */
-    public function run(){
-        if(!isset($this->routes[$this->getMethod()])){
+    public function run()
+    {
+        if (!isset($this->routes[$this->getMethod()])) {
             throw new RouterException('REQUEST_METHOD does not exist');
         }
-        foreach($this->routes[$this->getMethod()] as $route){
-            if($route->match($this->url)){
+        foreach ($this->routes[$this->getMethod()] as $route) {
+            if ($route->match($this->url)) {
                 return $route->call();
             }
         }
@@ -184,7 +179,7 @@ class Router
      * redirect to a route
      * @return void
      */
-    public  static function redirect(string $location, int $code)
+    public static function redirect(string $location, int $code)
     {
         $response = new Response();
         $response->headers->set('Location', $location);
@@ -211,10 +206,9 @@ class Router
         try {
             $response = $this->run();
         } catch (RouterException $e) {
-           $Response =  new Response($e->getMessage(), 404);
-           $Response->setStatusCode(404);
-           $Response->send();
-
+            $Response =  new Response($e->getMessage(), 404);
+            $Response->setStatusCode(404);
+            $Response->send();
         }
         if ($response instanceof Response) {
             $response->send();

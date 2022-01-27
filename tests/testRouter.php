@@ -54,7 +54,7 @@ class StackTest extends TestCase
         $router->add('GET', '/about/1', 'AboutController@about', 'about');
         $request = Request::create('/about/2');
         $response->setContent('No matching routes');
-        $response->setStatusCode(Response::HTTP_NOT_FOUND);        
+        $response->setStatusCode(Response::HTTP_NOT_FOUND);
         
         $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
         $this->assertNotEquals('/about/2', $router->getRoute('AboutController@about'));
@@ -138,7 +138,6 @@ class StackTest extends TestCase
         $request = Request::create('/about/1');
         $router->redirect('home', 301);
         $this->assertEquals('/', $router->getRouteByName('home'));
-              
     }
 
     public function testDelete()
@@ -210,10 +209,8 @@ class StackTest extends TestCase
             '<h1>About</h1>',
             Response::HTTP_OK,
             ['content-type' => 'text/html']
-        );               
-        $this->assertEquals($response->getContent(),  '<h1>About</h1>');
-      
-
+        );
+        $this->assertEquals($response->getContent(), '<h1>About</h1>');
     }
 
     public function testRunWithException()
@@ -224,11 +221,6 @@ class StackTest extends TestCase
         $router->add('GET', '/about/1', 'AboutController@about', 'about');
         $request = Request::create('/about/notfound');
         $this->expectExceptionMessage('not found');
-        $router->run();   
-      
-
+        $router->run();
     }
-    
-
-    
 }

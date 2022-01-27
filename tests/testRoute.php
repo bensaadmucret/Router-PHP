@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace Mzb\Tests;
 
-
 use Mzb\Router\Route;
 
 use PHPUnit\Framework\TestCase;
