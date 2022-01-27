@@ -29,7 +29,7 @@ use Mzb\Router\Router;
 
 require_once __DIR__.'/vendor/autoload.php';
 
-``` 
+`
 
     $router = new Router();
 
@@ -45,4 +45,4 @@ require_once __DIR__.'/vendor/autoload.php';
 
     $router->add('GET', '/contact', function () { echo 'Contact'; }, 'contact');
 
-```
+`
