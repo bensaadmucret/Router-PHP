@@ -2,7 +2,14 @@
     "name": "mzb/php-router-matcher",
     "description": "The router component allows you to define routes that correspond to controllers or managers that should receive the request. A router parses the URI to extract this information. The router has two modes: MVC, and match-only. The first mode is ideal for working on MVC applications.",
     "license": "MIT",
-    "version": "1.0.0", 
+    "type": "library",
+    "version": "1.0.0",
+    "keywords": [
+        "route",
+        "controller",
+        "http",
+        "router"
+      ], 
     "tags": [
         "router", 
         "mvc", 
