@@ -5,6 +5,9 @@
       <directory>src/</directory>
       <directory>tests/</directory>
     </include>
+    <report>
+      <clover outputFile="build/logs/clover.xml"/>
+    </report>
   </coverage>
   <testsuites>
     <testsuite name="MediaManger">
