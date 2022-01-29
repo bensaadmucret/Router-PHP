@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/bensaadmucret/mzb-php-router-matcher/badge.svg?branch=main)](https://coveralls.io/github/bensaadmucret/mzb-php-router-matcher?branch=main)
 [![Latest Stable Version](http://poser.pugx.org/mzb/php-router-matcher/v)](https://packagist.org/packages/mzb/php-router-matcher)
 [![License](http://poser.pugx.org/mzb/php-router-matcher/license)](https://packagist.org/packages/mzb/php-router-matcher)
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/01d2781aff99409ea9ce906d1faa0687)](https://www.codacy.com/gh/bensaadmucret/mzb-php-router-matcher/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bensaadmucret/mzb-php-router-matcher&amp;utm_campaign=Badge_Grade)
 
 Requirements
 The following versions of PHP are supported by this version.
