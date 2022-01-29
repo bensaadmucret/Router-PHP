@@ -278,7 +278,7 @@ tmtags
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash
-build/
+**/nbproject/Package-*.mk
 nbbuild/
 dist/
 nbdist/
