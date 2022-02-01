@@ -3,7 +3,7 @@
     "description": "The router component allows you to define routes that correspond to controllers or managers that should receive the request. A router parses the URI to extract this information. The router has two modes: MVC, and match-only. The first mode is ideal for working on MVC applications.",
     "license": "MIT",
     "type": "library",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "route",
         "controller",
