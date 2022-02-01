@@ -9,13 +9,6 @@
         "http",
         "router"
       ], 
-    "tags": [
-        "router", 
-        "mvc", 
-        "match-only", 
-        "php", 
-        "php-router-matcher"
-    ],
     "requires": {
         "php": ">=7.2.0"
     },
